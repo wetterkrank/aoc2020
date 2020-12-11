@@ -3,9 +3,9 @@
 hits = 0
 
 File.foreach('aoc03_input.txt').with_index do |line, i|
-  terrain = line.chomp.gsub('.', '0').gsub('#', '1').reverse.to_i(2)
-  toboggan = (i * 3) % 31
-  hits += (2**toboggan & terrain).positive? ? 1 : 0
+  terrain = line.chomp
+  toboggan = (i * 3) % terrain.length
+  hits += 1 if terrain[toboggan] == '#'
 end
 
 puts hits
