@@ -2,10 +2,10 @@
 
 groups = File.open('aoc06_input.txt').read.split("\n\n")
 
-count = groups.reduce(0) do |sum, group|
+result = groups.reduce(0) do |sum, group|
   ppl = group.split("\n").count
   answers = group.gsub("\n", '').chars
-  sum + answers.filter { |answer| answers.count(answer) == ppl }.uniq.count
+  sum + answers.filter { |answ| answers.count(answ) == ppl }.uniq.count
 end
 
-p count
+p result
