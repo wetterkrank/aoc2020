@@ -25,6 +25,6 @@ def get_parents(records, child, result = Set[])
   result
 end
 
-data = File.open('aoc07_test.txt').read.lines(chomp: true)
+data = File.open('aoc07_input.txt').read.lines(chomp: true)
 rules = parse_up data
 puts get_parents(rules, 'shiny gold').count
