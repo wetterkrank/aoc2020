@@ -1,17 +1,30 @@
 # https://adventofcode.com/2020/day/7, luggage processing rules
 
-rules = File.open('aoc07_input.txt').read.lines(chomp: true)
-bags = [' shiny gold']
+require 'set'
 
-loop do
-  matching_rules = rules.filter { |rule| rule.match? Regexp.union(bags) }
-  matching_bags = matching_rules.map { |rule| " #{rule.split[0..1].join(' ')}" }
-  unchecked = matching_bags - bags
-  break if unchecked.empty?
-
-  bags += matching_bags
-  bags.uniq!
+# returns the hash { bag => [list of its containers] }
+def parse_up(input)
+  output = {}
+  input.each do |line|
+    parts = line[0..-2].partition(' bags contain ')
+    container = parts[0]
+    contents = parts[2].split(', ').map { |c| c.split[1..2].join(' ') }
+    contents.each { |c| (output[c] ||= []) << container }
+  end
+  output
 end
 
-bags -= [' shiny gold']
-p bags.count
+# walks the rules hash and returns the set containing all item's parents
+def get_parents(records, child, result = Set[])
+  return if records[child].nil?
+
+  records[child].each do |parent|
+    result << parent
+    get_parents(records, parent, result)
+  end
+  result
+end
+
+data = File.open('aoc07_test.txt').read.lines(chomp: true)
+rules = parse_up data
+puts get_parents(rules, 'shiny gold').count
