@@ -23,15 +23,14 @@ def run(program)
   end
 end
 
-data = File.open('aoc08_input.txt').read.lines(chomp: true)
-backup = data
+data = File.open('aoc08_input.txt').read.lines(chomp: true) # can split here once
 candidates = data.each_index.select { |i| data[i].match?(/jmp|nop/) }
 
 result = candidates.detect do |i|
-  data = backup.dup.map(&:dup)
-  data[i].include?('jmp') ? data[i].sub!('jmp', 'nop') : data[i].sub!('nop', 'jmp')
+  program = data.dup.map(&:dup) # how about we don't copy the whole array but just replace one element?
+  program[i].include?('jmp') ? program[i].sub!('jmp', 'nop') : program[i].sub!('nop', 'jmp')
 
-  result = run(data)
+  result = run(program)
   break result if result
 end
 
