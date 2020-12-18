@@ -10,5 +10,6 @@ data = file.readlines.map do |line|
     pwd: parts[2] }
 end
 
+# or just != :)
 valid = data.filter { |entry| (entry[:pwd][entry[:p1]] == entry[:ch]) ^ (entry[:pwd][entry[:p2]] == entry[:ch]) }
 p valid.count
