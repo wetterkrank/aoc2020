@@ -1,4 +1,4 @@
-# https://adventofcode.com/2020/day/11
+# https://adventofcode.com/2020/day/11, ferry seats
 
 def count_neigbours(data, x, y, xmax, ymax)
   hood = data[[y - 1, 0].max..[y + 1, ymax].min].map { |row| row[[x - 1, 0].max..[x + 1, xmax].min] }
