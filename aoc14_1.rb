@@ -1,4 +1,4 @@
-# https://adventofcode.com/2020/day/14
+# https://adventofcode.com/2020/day/14, ferry docking bitmasks
 
 def update_mask(str)
   mask_or = str.gsub('X', '0')

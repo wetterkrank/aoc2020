@@ -1,4 +1,4 @@
-# https://adventofcode.com/2020/day/10
+# https://adventofcode.com/2020/day/10, bag of adapters
 
 def get_suitable_adapters(data, current)
   data.filter { |adp| adp > current && adp <= current + 3 }
