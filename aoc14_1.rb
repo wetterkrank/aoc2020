@@ -16,7 +16,7 @@ data.each do |line|
     mask = update_mask(arg)
   else
     cell = cmd.split('[')[1][0..-2]
-    mem[cell] = (arg.to_i & mask[:and]) | mask[:or]
+    mem[cell] = arg.to_i & mask[:and] | mask[:or]
   end
 end
 
