@@ -39,7 +39,8 @@ def build_box(hash)
     dims[2] << y
     dims[3] << x
   end
-  dims.map!(&:minmax).map { |axis| [axis[0] - 1, axis[1] + 1] }
+  dims = dims.map(&:minmax).map { |axis| [axis[0] - 1, axis[1] + 1] }
+  (dims[0][0]..dims[0][1]).to_a.product((dims[1][0]..dims[1][1]).to_a, (dims[2][0]..dims[2][1]).to_a, (dims[3][0]..dims[3][1]).to_a)
 end
 
 def count_neigbours(hash, w, z, y, x)
@@ -47,23 +48,15 @@ def count_neigbours(hash, w, z, y, x)
 end
 
 def cycle(hash)
-  box = build_box(hash)
+  boxed_cubes = build_box(hash)
   shadow = empty_hash
 
-  (box[0][0]..box[0][1]).each do |w|
-    (box[1][0]..box[1][1]).each do |z|
-      (box[2][0]..box[2][1]).each do |y|
-        (box[3][0]..box[3][1]).each do |x|
-
-          neigbours = count_neigbours(hash, w, z, y, x)
-          if hash.dig(w, z, y, x)
-            shadow[w][z][y][x] = true if (2..3).cover? neigbours
-          elsif neigbours == 3
-            shadow[w][z][y][x] = true
-          end
-
-        end
-      end
+  boxed_cubes.each do |(w, z, y, x)|
+    neigbours = count_neigbours(hash, w, z, y, x)
+    if hash.dig(w, z, y, x)
+      shadow[w][z][y][x] = true if (2..3).cover? neigbours
+    elsif neigbours == 3
+      shadow[w][z][y][x] = true
     end
   end
   shadow
@@ -78,4 +71,4 @@ end
 
 count = 0
 walk(space) { count += 1 }
-p count
+puts count
