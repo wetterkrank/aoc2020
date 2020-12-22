@@ -1,8 +1,8 @@
-# https://adventofcode.com/2020/day/17
+# https://adventofcode.com/2020/day/17, Conway's Life in 3D
 
 DIRS = [-1, 0, 1].repeated_permutation(3).to_a - [[0, 0, 0]]
 
-# automatic empty hash insertion?
+# automatic empty hash insertion? easy!
 def load(data)
   space = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = {} } }
   data.each_with_index do |row, y|
