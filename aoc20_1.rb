@@ -2,8 +2,9 @@
 
 def to_num(str)
   out = []
-  out << str.gsub('#', '1').gsub('.', '0').to_i(2)
-  out << str.gsub('#', '1').gsub('.', '0').reverse.to_i(2)
+  str.gsub!('#', '1').gsub!('.', '0')
+  out << str.to_i(2)
+  out << str.reverse.to_i(2)
 end
 
 def get_tiles(raw)
