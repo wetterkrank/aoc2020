@@ -4,9 +4,7 @@ pubkeys = [14012298, 74241] # input
 # pubkeys = [5764801, 17807724] # test
 
 def transform(subj, loop_size)
-  v = 1
-  loop_size.times { v = v * subj % 20201227 }
-  v
+  loop_size.times.reduce(1) { |v, _| v * subj % 20201227 }
 end
 
 v = 1
