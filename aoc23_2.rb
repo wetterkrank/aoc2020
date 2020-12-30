@@ -12,13 +12,6 @@ def link(seed, max)
   buf
 end
 
-# moves forward <offset> times
-def seek(llist, current, offset)
-  pos = current
-  offset.times { pos = llist[pos] }
-  pos
-end
-
 # returns the array of 3 excluded elements
 def extract3(llist, current)
   pos = llist[current]
@@ -32,7 +25,7 @@ def extract3(llist, current)
 end
 
 # assuming there are no gaps btw values; returns the destination cup
-def find_minor(current, exc, low, high)
+def next_minor(current, exc, low, high)
   exc << 0
   pos = current - 1
   pos = pos > low ? pos - 1 : high while exc.include? pos
@@ -61,14 +54,16 @@ data = data.chars.map(&:to_i)
 min = data.min
 current = data.first
 max = 1_000_000
+
 ring = link(data, max)
 
 10_000_000.times do
   exc = extract3(ring, current)
-  dest = find_minor(current, exc, min, max)
+  dest = next_minor(current, exc, min, max)
   insert3(ring, dest, exc)
   current = ring[current]
 end
 
-result = get_result(ring)
-puts result.reduce(:*)
+puts ring[1] * ring[ring[1]]
+# result = get_result(ring)
+# puts result.reduce(:*)
