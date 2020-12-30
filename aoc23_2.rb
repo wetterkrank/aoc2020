@@ -14,8 +14,8 @@ end
 
 # returns the array of 3 excluded elements
 def extract3(llist, current)
-  pos = llist[current]
   exc = []
+  pos = llist[current]
   3.times do
     exc << pos
     pos = llist[pos] # need all three elements for next dest selection
@@ -38,15 +38,6 @@ def insert3(llist, dest, exc)
   llist[exc[2]] = finish # connect 3rd excised element to the saved one
 end
 
-def get_result(llist, pos = 1)
-  result = []
-  2.times do
-    pos = llist[pos]
-    result << pos
-  end
-  result
-end
-
 # data = '389125467' # test
 data = '853192647' # input
 data = data.chars.map(&:to_i)
@@ -65,5 +56,3 @@ ring = link(data, max)
 end
 
 puts ring[1] * ring[ring[1]]
-# result = get_result(ring)
-# puts result.reduce(:*)
